@@ -1,0 +1,10 @@
+{
+  "clean_logit_diff": 49.11207962036133,
+  "corrupt_logit_diff": -48.670658111572266,
+  "recovery_by_hook": {
+    "resid_pre": 0.0,
+    "attn_out": 1.0,
+    "mlp_out": 0.9683142436058796,
+    "resid_post": 1.0
+  }
+}
