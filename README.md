@@ -1,26 +1,24 @@
 # grok-circuits
 
-A small, from-scratch reproduction of **grokking** and the **Fourier
+A from-scratch reproduction of **grokking** and the **Fourier
 multiplication circuit** it produces, as described in Power et al. (2022,
 ["Grokking"](https://arxiv.org/abs/2201.02177)) and Nanda et al. (2023,
 ["Progress measures for grokking via mechanistic
-interpretability"](https://arxiv.org/abs/2301.05217)). Everything here
-trains on CPU in a few minutes — there's no pretrained model, no API calls,
-just a one-layer transformer and closed-form analysis of what it learned.
+interpretability"](https://arxiv.org/abs/2301.05217)). Everything 
+can be trained on a CPU in minutes.
 
 ## Task
 
 A 1-layer, no-LayerNorm transformer (`src/model.py`) is trained on
 `(a, b) -> (a + b) mod p` for `p = 59`, with only 60% of the `(a, b)` pairs
-seen during training. The question driving this project: once it learns to
-generalize, *how* does the network represent and compute the sum?
+seen during training.
 
 ## 1. Grokking
 
 With weight decay and a restricted training set, train accuracy hits 100%
 almost immediately while test accuracy lags behind by several hundred
 steps before catching up — the network's representations keep changing
-well after it has "solved" the training set.
+well after it has learned the training set.
 
 ![grokking curve](results/grokking_curve.png)
 
@@ -80,15 +78,6 @@ over 500 random clean/corrupt pairs):
   what gets unembedded into logits.
 
 Run it yourself: `python -m scripts.run_patching`
-
-## Why this task
-
-This is a condensed version of a well-studied interpretability result,
-picked because it's cheap to reproduce honestly end-to-end (training,
-probing, and causal verification) rather than because it's novel. The
-combination — a correlational probe followed by an interventional check
-that either confirms or contradicts it — is the methodological pattern I'm
-most interested in applying to less toy settings.
 
 ## Project layout
 
