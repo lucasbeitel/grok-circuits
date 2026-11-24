@@ -48,3 +48,18 @@ def plot_probe_heatmap(results: dict, out_path: str) -> None:
     fig.tight_layout()
     fig.savefig(out_path, dpi=150)
     plt.close(fig)
+
+
+def plot_patching_recovery(recovery_by_hook: dict, out_path: str) -> None:
+    hooks = list(recovery_by_hook.keys())
+    values = [recovery_by_hook[h] for h in hooks]
+
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.bar(hooks, values, color="tab:green")
+    ax.axhline(0, color="black", linewidth=0.8)
+    ax.axhline(1, color="gray", linewidth=0.8, linestyle="--")
+    ax.set_ylabel("fraction of clean logit-diff recovered")
+    ax.set_title("Activation patching: where does the answer causally live?")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=150)
+    plt.close(fig)
